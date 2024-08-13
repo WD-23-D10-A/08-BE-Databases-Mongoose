@@ -34,28 +34,33 @@ const Person = new mongoose.model("Person", personSchema);
 //   .then((result) => console.log(result))
 //   .catch((err) => console.log(err));
 
+// Funktion zum Aktualisieren des Namens einer bestimmten Person
 const updateSteven = async () => {
   try {
+    // Aktualisiert das Dokument mit der angegebenen ID und setzt den Namen auf "Mohamed2"
     const result = await Person.updateOne(
       { _id: "66bb170c90df5dee91e62314" },
       { name: "Mohamed2" }
     );
-    console.log(result);
+    console.log(result); // Gibt das Ergebnis der Aktualisierung aus
   } catch (err) {
-    console.log(err);
+    console.log(err); // Gibt einen Fehler aus, falls einer auftritt
   } finally {
+    // Schließt die Verbindung zur Datenbank
     mongoose.connection.close();
   }
 };
 
 // updateSteven();
 
+// Funktion zum Löschen eines bestimmten "Fruit"-Dokuments
 const deleteFruit = async () => {
   try {
+    // Löscht das Dokument mit der angegebenen ID
     const result = await Fruit.deleteOne({ _id: "66bb0ed51d2d1b2b2cb1ec6f" });
-    console.log(result);
+    console.log(result); // Gibt das Ergebnis des Löschens aus
   } catch (err) {
-    console.log(err);
+    console.log(err); // Gibt einen Fehler aus, falls einer auftritt
   }
 };
 
@@ -68,13 +73,16 @@ const deleteFruit = async () => {
 
 // johns.save();
 
+// Funktion zum Löschen aller "Person"-Dokumente mit dem Namen "John"
 const deleteJohns = async () => {
   try {
+    // Löscht alle Dokumente, die den Namen "John" haben
     const result = await Person.deleteMany({ name: "John" });
-    console.log(result);
+    console.log(result); // Gibt das Ergebnis des Löschens aus
   } catch (err) {
-    console.log(err);
+    console.log(err); // Gibt einen Fehler aus, falls einer auftritt
   } finally {
+    // Schließt die Verbindung zur Datenbank
     mongoose.connection.close();
   }
 };

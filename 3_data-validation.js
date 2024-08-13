@@ -7,16 +7,17 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/fruitsDB");
 }
 
+// Definiert das Schema für die "Fruit"-Dokumente in der MongoDB-Datenbank mit Validierung
 const fruitSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "No name defined"],
+    required: [true, "No name defined"], // Name ist erforderlich, Fehlermeldung wenn nicht definiert
   },
   rating: {
     type: Number,
-    min: [1, "can't be lower than 1"],
-    max: [10, "can't be higher than 10"],
-    required: [true, "no rating defined"],
+    min: [1, "can't be lower than 1"], // Mindestbewertung ist 1, Fehlermeldung wenn niedriger
+    max: [10, "can't be higher than 10"], // Höchstbewertung ist 10, Fehlermeldung wenn höher
+    required: [true, "no rating defined"], // Bewertung ist erforderlich, Fehlermeldung wenn nicht definiert
   },
   review: String,
 });

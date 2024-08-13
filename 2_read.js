@@ -15,13 +15,16 @@ const fruitSchema = new mongoose.Schema({
 
 const Fruit = new mongoose.model("Fruit", fruitSchema);
 
+// Asynchrone Funktion, um ein bestimmtes "Fruit"-Dokument aus der Datenbank abzurufen
 const getFruit = async () => {
   try {
+    // Findet das "Fruit"-Dokument mit der angegebenen ID
     const apple = await Fruit.find({ _id: "66bb0eb995e4654185a2e72f" });
-    console.log(apple);
+    console.log(apple); // Gibt das gefundene Dokument aus
   } catch (err) {
-    console.log(err);
+    console.log(err); // Gibt einen Fehler aus, falls einer auftritt
   } finally {
+    // Schließt die Verbindung zur Datenbank
     mongoose.connection.close();
   }
 };
@@ -37,9 +40,12 @@ const getFruit = async () => {
 //   })
 //   .finally(() => mongoose.connection.close());
 
+// Asynchrone Funktion, um alle "Fruit"-Dokumente aus der Datenbank abzurufen und deren Namen auszugeben
 const getNames = async () => {
   try {
+    // Findet alle "Fruit"-Dokumente in der Datenbank
     const fruits = await Fruit.find();
+    // Gibt den Namen jeder Frucht aus
     fruits.forEach((fruit) => {
       console.log(fruit.name);
     });

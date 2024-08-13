@@ -26,7 +26,7 @@ const Fruit = new mongoose.model("Fruit", fruitSchema);
 const personSchema = new mongoose.Schema({
   name: String,
   alter: Number,
-  // embedding
+  // Einbettung eines "Fruit"-Schemas als Lieblingsfrucht der Person
   favouriteFruit: fruitSchema,
 });
 
@@ -38,7 +38,9 @@ const pineapple = new Fruit({
   review: "ok",
 });
 
+// Funktion zum Erstellen einer neuen Person und Speichern in der Datenbank
 const createPerson = async () => {
+  // Erstellt ein neues "Person"-Dokument mit der Lieblingsfrucht Ananas
   const person = new Person({
     name: "Amy",
     age: 19,
@@ -46,12 +48,14 @@ const createPerson = async () => {
   });
 
   try {
+    // Speichert die Ananas und die Person in der Datenbank
     await pineapple.save();
     const result = await person.save();
-    console.log(result);
+    console.log(result); // Gibt das gespeicherte Person-Dokument aus
   } catch (err) {
-    console.log(err);
+    console.log(err); // Gibt einen Fehler aus, falls einer auftritt
   } finally {
+    // Schließt die Verbindung zur Datenbank
     mongoose.connection.close();
   }
 };
@@ -64,18 +68,23 @@ const banana = new Fruit({
   review: "banana",
 });
 
+// Funktion zum Aktualisieren der Lieblingsfrucht einer bestimmten Person
 const updateSteven = async () => {
   try {
+    // Speichert die Banane in der Datenbank
     await banana.save();
+    // Aktualisiert das Dokument der Person mit der angegebenen ID und setzt die Lieblingsfrucht auf Banane
     const res = await Person.updateOne(
       { _id: "66bb1015576e301c1b16914c" },
       { favouriteFruit: banana }
     );
-    console.log(res);
+    console.log(res); // Gibt das Ergebnis der Aktualisierung aus
   } catch (err) {
-    console.log(err);
+    console.log(err); // Gibt einen Fehler aus, falls einer auftritt
   } finally {
+    // Schließt die Verbindung zur Datenbank
     mongoose.connection.close();
   }
 };
+
 updateSteven();
